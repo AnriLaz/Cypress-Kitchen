@@ -4,11 +4,6 @@ orbs:
 workflows:
   build:
     jobs:
-      - cypress/install
-      - cypress/run:
-          requires:
-            - cypress/install
-          record: true
-          parallel: true
-          parallelism: 2
-          group: 2 machines
+      # "cypress" is the name of the imported orb
+      # "run" is the name of the job defined in Cypress orb
+      - cypress/run
