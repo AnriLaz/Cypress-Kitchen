@@ -1,14 +1,11 @@
+# to use orbs, must use version >= 2.1
 version: 2.1
 orbs:
-  node: circleci/node@1.1
-jobs:
+ 
+  cypress: cypress-io/cypress@1
+workflows:
   build:
-    executor:
-      name: node/default
-      tag: '10.4'
-    steps:
-      - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install
-      - run: npm run test
+    jobs:
+      # "cypress" is the name of the imported orb
+      # "run" is the name of the job defined in Cypress orb
+      - cypress/run
