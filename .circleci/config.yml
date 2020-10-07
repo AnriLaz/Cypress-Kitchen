@@ -4,11 +4,18 @@ orbs:
 workflows:
   build:
     jobs:
-      - cypress/install
+      # first get the source code and install npm dependencies
+      - cypress/install:
+          # run a custom app build step
+          build: 'npm run build'
       - cypress/run:
+          # make sure app has been installed and built
+          # before running tests across multiple machines
+          # this avoids installing same dependencies 10 times
           requires:
             - cypress/install
-         
-          parallel: true
-          parallelism: 2
-          ci-build-id: 'testing-commit-${CIRCLE_SHA1}'
+          
+          parallel: true # split all specs across machines
+          parallelism: 2 # use 4 CircleCI machines to finish quickly
+          group: 'all tests' # name this group "all tests" on the dashboard
+          start: 'npm start' # start server before running tests
