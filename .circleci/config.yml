@@ -8,7 +8,7 @@ workflows:
       - cypress/run:
           requires:
             - cypress/install
-          record: true
+         
           parallel: true
           parallelism: 2
           ci-build-id: 'testing-commit-${CIRCLE_SHA1}'
